@@ -1,0 +1,59 @@
+[tool.poetry]
+name = "reproducing-pigeon"
+version = "1.0.0"
+description = "Reproducibility code for PIGEON: A pipeline for generating synthetic German medical texts and fine-tuning LLMs for structured medical information extraction (ICD-10-GM, OPS, ATC)"
+authors = ["Baher Yilmaz"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+
+# Core data processing
+pandas = "^2.0"
+numpy = "^1.26"
+datasets = "^3.0"
+tqdm = "^4.66"
+
+# LLM & training
+unsloth = "2025.6.5"
+torch = "^2.5.1"
+transformers = "4.51.3"
+trl = "^0.13.0"
+peft = "^0.14.0"
+accelerate = "^1.0.1"
+vllm = "^0.8.3"
+
+# LLM API interaction
+openai = "^1.59"
+aiohttp = "^3.9"
+
+# RAG correction
+langchain = "^0.3.27"
+langchain-community = "^0.3.30"
+faiss-cpu = "^1.12.0"
+sentence-transformers = "^3.4.1"
+
+# Evaluation
+bert-score = "^0.3"
+rouge-score = "^0.1"
+
+# Database (Stage 1 only — optional)
+psycopg = {version = "^3.1.18", extras = ["binary", "pool"], optional = true}
+
+# Utilities
+python-dotenv = "^1.0"
+rapidfuzz = "^3.5"
+json-repair = "^0.30"
+
+# Experiment tracking (optional)
+wandb = {version = "^0.19", optional = true}
+
+[tool.poetry.extras]
+database = ["psycopg"]
+tracking = ["wandb"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

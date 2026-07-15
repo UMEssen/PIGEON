@@ -1,0 +1,6 @@
+c0_id,ccc0_codes,ccc0_displays,ccc0_1_codes,ccc0_1_displays,c0_recordedDate,patient_id
+cond_001,"['C34.1']","['Bösartige Neubildung: Oberlappen (-Bronchus)']","['DRG-Hauptdiagnose']","['DRG-Hauptdiagnose']",2024-03-15,pat_sample001
+cond_002,"['I10.00']","['Benigne essentielle Hypertonie: Ohne Angabe einer hypertensiven Krise']","['Nebendiagnose']","['Nebendiagnose']",2024-03-15,pat_sample001
+cond_003,"['E11.90']","['Diabetes mellitus, Typ 2: Ohne Komplikationen']","['Nebendiagnose']","['Nebendiagnose']",2024-03-15,pat_sample001
+cond_004,"['J44.19']","['Chronische obstruktive Lungenkrankheit mit akuter Exazerbation']","['Nebendiagnose']","['Nebendiagnose']",2024-02-20,pat_sample001
+cond_005,"['N18.3']","['Chronische Nierenkrankheit, Stadium 3']","['Nebendiagnose']","['Nebendiagnose']",2024-01-10,pat_sample001

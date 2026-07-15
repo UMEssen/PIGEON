@@ -1,0 +1,13 @@
+o0_id,oi0_system,o0_effectiveDateTime,occ0.display,ov0_value,ov0_unit,orl0_value,orh0_value,ovc0_system,ovc0_display,ocvc0_system,ocvc0_display,component_display,component_code_code,component_code_system,component_value_code,component_value_system
+obs_001,https://example-hospital.org/fhir/Laboratory,2024-03-16,Hämoglobin,12.5,g/dL,13.5,17.5,,,,,,,,,
+obs_002,https://example-hospital.org/fhir/Laboratory,2024-03-16,Leukozyten,8.2,Tsd/µL,4.0,10.0,,,,,,,,,
+obs_003,https://example-hospital.org/fhir/Laboratory,2024-03-16,Kreatinin,1.8,mg/dL,0.7,1.2,,,,,,,,,
+obs_004,https://example-hospital.org/fhir/Laboratory,2024-03-16,CRP,45.3,mg/L,0.0,5.0,,,,,,,,,
+obs_005,https://example-hospital.org/fhir/Laboratory,2024-03-16,Kalium,4.1,mmol/L,3.5,5.0,,,,,,,,,
+obs_006,https://example-hospital.org/fhir/Observation/HeartBeat,2024-03-16,,78,bpm,,,,,,,,,,,
+obs_007,https://example-hospital.org/fhir/Observation/OxygenSaturation,2024-03-16,,96,%,,,,,,,,,,,
+obs_008,https://example-hospital.org/fhir/Observation/BodyTemperature,2024-03-16,,37.2,°C,,,,,,,,,,,
+obs_009,https://example-hospital.org/fhir/Observation/BodyWeight,2024-03-16,,82,kg,,,,,,,,,,,
+obs_010,https://example-hospital.org/fhir/Observation/BodyHeight,2024-03-16,,175,cm,,,,,,,,,,,
+obs_011,https://example-hospital.org/fhir/Observation/BloodPressure,2024-03-16,,130,mmHg,,,,,,,Systolic blood pressure,8480-6,http://loinc.org,,
+obs_011,https://example-hospital.org/fhir/Observation/BloodPressure,2024-03-16,,85,mmHg,,,,,,,Diastolic blood pressure,8462-4,http://loinc.org,,

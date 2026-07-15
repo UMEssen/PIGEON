@@ -1,0 +1,4 @@
+p0_id,pcc0_display,pcc0_code,p0_performedDateTime,patient_id
+proc_001,Computertomographie des Thorax mit Kontrastmittel,3-222,2024-03-16,pat_sample001
+proc_002,Bronchoskopie mit Biopsie,1-620.0,2024-03-17,pat_sample001
+proc_003,Transthorakale Echokardiographie,3-052,2024-03-16,pat_sample001

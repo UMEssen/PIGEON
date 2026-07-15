@@ -1,0 +1,6 @@
+m1.id,m0.id,p0.id,md0.text_list,mcc0.display_list
+med_001,med_drug_001,pat_sample001,"[""08:00|5.0|Tablette"", ""20:00|5.0|Tablette""]","[""Ramipril 5 mg"", ""Ramipril""]"
+med_002,med_drug_002,pat_sample001,"[""08:00|1000.0|Tablette"", ""18:00|500.0|Tablette""]","[""Metformin 1000 mg"", ""Metformin""]"
+med_003,med_drug_003,pat_sample001,"[""08:00|100.0|Tablette""]","[""Aspirin 100 mg"", ""Acetylsalicylsäure""]"
+med_004,med_drug_004,pat_sample001,"[""08:00|20.0|Tablette""]","[""Pantoprazol 20 mg"", ""Pantoprazol""]"
+med_005,med_drug_005,pat_sample001,"[""08:00|1.0|Inhalation"", ""20:00|1.0|Inhalation""]","[""Tiotropiumbromid 18 µg"", ""Spiriva""]"

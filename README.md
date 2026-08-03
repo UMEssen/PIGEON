@@ -1,3 +1,5 @@
+![PIGEON-Banner](PIGEON.png)
+
 # PIGEON: Reproducibility Code
 
 **P**aitent **I**nformation **G**eneration from **O**rganized **N**otes

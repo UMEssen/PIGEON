@@ -2,7 +2,7 @@
 
 # PIGEON: Reproducibility Code
 
-**P**aitent **I**nformation **G**eneration from **O**rganized **N**otes
+**P**atient **I**nformation **G**eneration and **E**xtraction for **O**rganized **N**otes
 
 This repository contains the complete, reproducible pipeline for generating synthetic German medical texts from FHIR data and fine-tuning large language models for structured medical information extraction.
 
@@ -106,8 +106,8 @@ reproducing-pigeon/
 ### 1. Installation
 
 ```bash
-git clone https://github.com/bahadirery/reproducing-pigeon.git
-cd reproducing-pigeon
+git clone https://github.com/UMEssen/PIGEON.git
+cd PIGEON
 
 # Install with Poetry
 pip install poetry
@@ -167,9 +167,16 @@ python -m src.7_evaluation.evaluate --predictions corrected.csv --ground-truth t
 
 ### Stage 1: FHIR Cache Generation
 
-Extracts clinical data from a FHIR-compliant PostgreSQL database into per-encounter/patient CSV files. The SQL queries target these FHIR resource types:
+Extracts clinical data from a FHIR-compliant PostgreSQL database into per-encounter/patient CSV files, one CSV per resource type.
 
-| Resource | Data Extracted | Key Columns |
+> **⚠️ Reproducibility note — Stage 1 is infrastructure-specific.**
+> The SQL in `src/1_cache_generation/queries.py` was written against an **internal PostgreSQL-backed FHIR store** that is **not publicly available**. The cryptic column aliases you'll see in these queries (e.g. `ccc0_codes`, `mcc0.display_list`, `ov0_value`) are **auto-generated aliases from that store's internal FHIR-to-SQL flattening** — they encode the nested path into a resource (roughly: resource → `code` → `coding` → index `0`), not standard FHIR field names. They will **not** exist on any other FHIR backend.
+>
+> **You do not need to run Stage 1 to use this repository.** Stages 2–7 run entirely on the CSV cache. If you don't have this specific database, use the sample cache in `data/sample/` (see [Reproduce with your own FHIR server](#reproduce-with-your-own-fhir-server) below to produce your own).
+
+The queries target these FHIR resource types (internal column alias → what it represents):
+
+| Resource | Data Extracted | Internal Aliases |
 |----------|---------------|-------------|
 | **Condition** | Diagnoses with ICD-10-GM codes | `ccc0_codes`, `ccc0_displays`, `ccc0_1_displays`, `c0_recordedDate` |
 | **MedicationStatement** | Medications with dosage schedules | `mcc0.display_list`, `md0.text_list` |
@@ -178,7 +185,24 @@ Extracts clinical data from a FHIR-compliant PostgreSQL database into per-encoun
 | **Patient** | Demographics | `pn0.family`, `png0_value`, `p0.birthDate`, `p0.gender` |
 | **Encounter** | Hospital stay metadata | `ep0_start_max`, `ep0_end_max`, `distinct_etc0_display` |
 
-> **Note**: If you don't have a FHIR database, you can use the sample data in `data/sample/` to test Stages 2-7.
+#### Reproduce with your own FHIR server
+
+If you have a standard FHIR server (e.g. HAPI FHIR, or any FHIR R4 REST endpoint), you can rebuild the same cache without the internal SQL. Query each resource by encounter/patient and map the fields with **FHIRPath** as follows, then write one CSV per resource type into `data/fhir_cache/` using the column names Stage 2 expects (see `data/sample/` for the exact CSV schemas):
+
+| Cache field | FHIRPath on the source resource |
+|-------------|--------------------------------|
+| Diagnosis code / display | `Condition.code.coding.code` / `Condition.code.coding.display` |
+| Diagnosis date | `Condition.recordedDate` |
+| Medication display | `MedicationStatement.medicationCodeableConcept.coding.display` |
+| Medication dosage text | `MedicationStatement.dosage.text` |
+| Observation name / value / unit / system | `Observation.code.coding.display` / `Observation.valueQuantity.value` / `Observation.valueQuantity.unit` / `Observation.code.coding.system` |
+| Procedure code / display | `Procedure.code.coding.code` / `Procedure.code.coding.display` |
+| Patient name / given / birth date / gender | `Patient.name.family` / `Patient.name.given` / `Patient.birthDate` / `Patient.gender` |
+| Encounter start / end | `Encounter.period.start` / `Encounter.period.end` |
+
+A typical approach: fetch resources with a REST search (e.g. `GET [base]/Condition?encounter=[id]`), evaluate the FHIRPath expressions above with any FHIRPath library, and emit the CSV columns shown in `data/sample/`. Only the extraction layer (Stage 1) changes; Stages 2–7 are unaffected.
+
+> **Note**: If you just want to try the pipeline, the sample data in `data/sample/` lets you run Stages 2–7 with no FHIR backend at all.
 
 ### Stage 2: Synthetic Text Generation
 
@@ -344,7 +368,7 @@ See `data/sample/` for example CSV structures with all expected columns.
 
 ## Acknowledgments
 
-The FHIR data extraction uses the fhirql query language for PostgreSQL-backed FHIR stores.
+The Stage 1 FHIR data extraction was implemented against an internal PostgreSQL-backed FHIR store using standard SQL. See the [Stage 1 reproducibility note](#stage-1-fhir-cache-generation) for how to reproduce the extraction against your own FHIR server.
 
 ## License
 
